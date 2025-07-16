@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    
+</head>
+<body>
+<div class="container">
+<h2>Chi tiết phiếu nhập chi tiết</h2>
+<div th:if="${chiTiet != null}">
+    <div class="detail-item">
+        <span class="detail-label">Tên sản phẩm:</span>
+        <span class="detail-value" th:text="${chiTiet.tenSanPham}"></span>
+    </div>
+    <div class="detail-item">
+        <span class="detail-label">Số lượng:</span>
+        <span class="detail-value" th:text="${chiTiet.soLuong}"></span>
+    </div>
+    <div class="detail-item">
+        <span class="detail-label">Giá nhập:</span>
+        <span class="detail-value" th:text="${chiTiet.giaNhap}"></span>
+    </div>
+    <div class="detail-item">
+        <span class="detail-label">Ngày sản xuất:</span>
+        <span class="detail-value" th:text="${#dates.format(chiTiet.ngaySanXuat, 'dd/MM/yyyy')}"></span>
+    </div>
+    <div class="detail-item">
+        <span class="detail-label">Mã phiếu nhập:</span>
+        <span class="detail-value" th:text="${chiTiet.idPhieuNhap}"></span>
+    </div>
+</div>
+<a href="/phieu-nhap-chi-tiet/hien-thi" class="btn btn-secondary">Quay lại</a>
+</div>
+</body>
+</html> 

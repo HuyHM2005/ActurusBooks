@@ -1,0 +1,7 @@
+package com.example.quanlyphieunhap.repository;
+
+import com.example.quanlyphieunhap.entity.PhieuNhap;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface PhieuNhapRepository extends JpaRepository<PhieuNhap, Integer> {
+} 

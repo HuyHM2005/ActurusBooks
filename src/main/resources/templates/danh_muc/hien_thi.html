@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý Danh Mục</title>
+</head>
+<body>
+<h2>Danh sách Danh Mục</h2>
+<a href="/danh-muc/add">Thêm mới danh mục</a>
+<ul>
+    <li th:each="dm : ${listDanhMuc}">
+        <span th:text="${dm.ten}"></span>
+        <a th:href="@{'/danh-muc/edit'(id=${dm.id})}">Sửa</a>
+        <a th:href="@{'/danh-muc/delete'(id=${dm.id})}" onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</a>
+        <ul th:if="${dm.children}">
+            <li th:each="child : ${dm.children}">
+                <span th:text="${child.ten}"></span>
+                <a th:href="@{'/danh-muc/edit'(id=${child.id})}">Sửa</a>
+                <a th:href="@{'/danh-muc/delete'(id=${child.id})}" onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</a>
+                <!-- Có thể lặp lại tiếp nếu muốn hiển thị nhiều cấp sâu hơn -->
+            </li>
+        </ul>
+    </li>
+</ul>
+</body>
+</html> 

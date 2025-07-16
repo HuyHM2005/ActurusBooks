@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thêm phiếu nhập chi tiết</title>
+    
+</head>
+<body>
+<div class="container">
+<h2>Thêm phiếu nhập chi tiết</h2>
+<form th:action="@{/phieu-nhap-chi-tiet/add}" th:object="${chiTiet}" method="post" class="form-card">
+    <div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger">
+        <p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+    </div>
+    <div class="form-group">
+        <label class="form-label">Tên sản phẩm</label>
+        <input type="text" th:field="*{tenSanPham}" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label class="form-label">Số lượng</label>
+        <input type="number" th:field="*{soLuong}" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label class="form-label">Giá nhập</label>
+        <input type="number" step="0.01" th:field="*{giaNhap}" class="form-control" />
+        <span th:if="${#fields.hasErrors('giaNhap')}" th:errors="*{giaNhap}" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="form-label">Ngày sản xuất</label>
+        <input type="date" th:field="*{ngaySanXuat}" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label class="form-label">Mã phiếu nhập</label>
+        <select th:field="*{idPhieuNhap}" class="form-select">
+            <option th:each="pn : ${listPhieuNhap}" th:value="${pn.id}" th:text="${pn.maPhieuNhap}"></option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-success">Thêm</button>
+</form>
+<a href="/phieu-nhap-chi-tiet/hien-thi" class="btn btn-link">Quay lại</a>
+</div>
+</body>
+</html> 

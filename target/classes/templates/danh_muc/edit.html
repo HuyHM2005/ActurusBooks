@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sửa Danh Mục</title>
+</head>
+<body>
+<h2>Sửa Danh Mục</h2>
+<form th:action="@{/danh-muc/edit}" th:object="${danhMuc}" method="post">
+    <input type="hidden" th:field="*{id}" />
+    <label>Tên danh mục:</label>
+    <input type="text" th:field="*{ten}" required />
+    <br/>
+    <label>Danh mục cha:</label>
+    <select th:field="*{parent}" >
+        <option th:value="" >-- Không chọn --</option>
+        <option th:each="dm : ${listDanhMuc}" th:value="${dm}" th:text="${dm.ten}" th:selected="${dm.id == danhMuc.parent?.id}"></option>
+    </select>
+    <br/>
+    <button type="submit">Cập nhật</button>
+    <a href="/danh-muc/hien-thi">Quay lại</a>
+</form>
+</body>
+</html> 

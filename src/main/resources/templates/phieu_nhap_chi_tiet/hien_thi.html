@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Danh sách phiếu nhập chi tiết</title>
+      
+</head>
+<body class="bg-light">
+<div class="container mt-4">
+<h2 class="mb-4">Danh sách phiếu nhập chi tiết</h2>
+<!-- Hiển thị chi tiết nếu có -->
+<div th:if="${chiTietView != null}" class="alert alert-info">
+    <h4>Chi tiết phiếu nhập chi tiết</h4>
+    <p><b>Tên sản phẩm:</b> <span th:text="${chiTietView.ct.tenSanPham}"></span></p>
+    <p><b>Số lượng:</b> <span th:text="${chiTietView.ct.soLuong}"></span></p>
+    <p><b>Giá nhập:</b> <span th:text="${chiTietView.ct.giaNhap}"></span></p>
+    <p><b>Ngày sản xuất:</b> <span th:text="${chiTietView.ngaySanXuatStr}"></span></p>
+    <p><b>Mã phiếu nhập:</b> <span th:text="${phieuNhapMap[chiTietView.ct.idPhieuNhap]?.maPhieuNhap}"></span></p>
+    <p><b>Nhà cung cấp:</b> <span th:text="${phieuNhapMap[chiTietView.ct.idPhieuNhap]?.nhaCungCap}"></span></p>
+    <a href="/phieu-nhap-chi-tiet/hien-thi" class="btn btn-secondary btn-sm mt-2">Quay lại</a>
+    <hr/>
+</div>
+<table class="table table-bordered table-hover bg-white">
+    <thead class="table-dark">
+        <tr>
+            <th>STT</th>
+            <th>Tên sản phẩm</th>
+            <th>Số lượng</th>
+            <th>Giá nhập</th>
+            <th>Ngày sản xuất</th>
+            <th>Mã phiếu nhập</th>
+            <th>Nhà cung cấp</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row, iterStat : ${listChiTietView}">
+        <td th:text="${iterStat.index + 1}"></td>
+        <td th:text="${row.ct.tenSanPham}"></td>
+        <td th:text="${row.ct.soLuong}"></td>
+        <td th:text="${row.ct.giaNhap}"></td>
+        <td th:text="${row.ngaySanXuatStr}"></td>
+        <td th:text="${phieuNhapMap[row.ct.idPhieuNhap]?.maPhieuNhap}"></td>
+        <td th:text="${phieuNhapMap[row.ct.idPhieuNhap]?.nhaCungCap}"></td>
+        <td>
+            <a th:href="@{'/phieu-nhap-chi-tiet/detail'(id=${row.ct.id})}" class="btn btn-sm btn-primary">Detail</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<a href="/phieu-nhap-chi-tiet/add" class="btn btn-success">Thêm mới</a>
+</div>
+</body>
+</html> 
