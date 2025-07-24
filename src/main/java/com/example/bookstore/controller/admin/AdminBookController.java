@@ -15,7 +15,6 @@ public class AdminBookController {
     @Autowired
     private BookService bookService;
 
-    // Regex linh hoạt hơn, chấp nhận query parameters
     private static final Pattern IMAGE_URL_PATTERN = Pattern.compile(".*\\.(jpg|jpeg|png|gif)(\\?.*)?$",
             Pattern.CASE_INSENSITIVE);
 
