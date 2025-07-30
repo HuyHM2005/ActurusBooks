@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ActurusBooks - Trí thức trong tầm tay</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+
+<body>
+
+    <div th:replace="fragments/navbar-customer :: navbar"></div>
+
+    <!-- 🔹 Banner Section -->
+    <section class="hero-banner d-flex align-items-center">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <!-- Left Content -->
+                <div class="col-md-6 text-content">
+                    <p class="lead">Không thể bỏ lỡ !!!</p>
+                    <h1 class="display-4 fw-bold">Combo 45 tập truyện Doraemon</h1>
+                    <a href="#" class="btn btn-dark px-4 py-2 mt-3">Mua ngay</a>
+                </div>
+
+                <!-- Right Image -->
+                <div class="col-md-6 text-center">
+                    <img src="img/banner.png" alt="Banner Product" class="img-fluid banner-img">
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="new-arrivals py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Sách Mới Về</h2>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-between">
+                <button class="arrow-btn prev-btn"><i class="bi bi-chevron-left"></i></button>
+
+                <div class="row g-4">
+                    <th:block th:each="book, iterStat : ${newBooks}">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="product-card text-center">
+                                <div class="product-image position-relative"
+                                    th:classappend="' pro' + ${iterStat.index + 1}">
+                                    <a th:href="@{'/product-detail/' + ${book.bookId}}">
+                                        <img th:src="@{${book.imageUrl}}" class="img-fluid" th:alt="${book.title}"
+                                            style="height:320px;object-fit:cover;">
+                                    </a>
+                                    <span class="tag-badge new"
+                                        th:if="${book.category != null and #strings.contains(book.category, 'mới')}">Mới</span>
+                                </div>
+                                <h6 class="mt-3 mb-1" th:text="${book.title}">Tên sách</h6>
+                                <p class="text-muted">
+                                    <span
+                                        th:text="${#numbers.formatDecimal(book.price, 0, 'COMMA', 0, 'POINT')} + 'đ'"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
+
+                <button class="arrow-btn next-btn"><i class="bi bi-chevron-right"></i></button>
+            </div>
+
+
+            <nav class="mt-5 d-flex justify-content-center">
+                <ul class="pagination dots">
+                    <li class="page-item active"><a class="page-link" href="#"></a></li>
+                    <li class="page-item"><a class="page-link" href="#"></a></li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+    <section class="promo-section py-5 d-flex justify-content-center">
+        <div class="container-xxl">
+            <div class="row justify-content-center g-4 align-items-center">
+
+                <!-- Khối promo 1 -->
+                <div class="col-md-5">
+                    <div class="promo-box promo-left d-flex align-items-center justify-content-center">
+                        <div class="promo-image">
+                            <img src="img/promo1.png" class="img-fluid" alt="Khuyến mãi sách thiếu nhi">
+                        </div>
+                        <div class="promo-content text-start">
+                            <h2 class="fw-bold">Tuần Lễ Sách Thiếu Nhi</h2>
+                            <p class="text-danger display-6">GIẢM ĐẾN 50%</p>
+                            <a href="#" class="btn btn-dark px-4 py-2 mt-3">Xem ngay</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Khối promo 2 -->
+                <div class="col-md-5">
+                    <div class="promo-box promo-right d-flex align-items-center justify-content-center">
+                        <div class="promo-content text-end">
+                            <h2 class="fw-bold">Combo Sách Kỹ Năng Sống</h2>
+                            <p class="text-primary display-6">ƯU ĐÃI ĐẶC BIỆT</p>
+                            <a href="#" class="btn btn-dark px-4 py-2 mt-3">Khám phá</a>
+                        </div>
+                        <div class="promo-image">
+                            <img src="img/promo2.png" class="img-fluid" alt="Khuyến mãi combo sách kỹ năng">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- Trending Books Section -->
+    <section class="trending-products py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Sách Bán Chạy</h2>
+            </div>
+            <div class="row g-4">
+                <!-- Book 1 -->
+                <div class="col-md-3 col-sm-6">
+                    <div class="product-card text-center position-relative">
+                        <div class="product-image">
+                            <img src="img/book1.png" class="img-fluid" alt="Doraemon Tập 1">
+                            <span class="tag-badge new">Mới</span>
+                        </div>
+                        <h6 class="mt-3">Doraemon Tập 1</h6>
+                        <p class="text-muted">25.000đ</p>
+                    </div>
+                </div>
+                <!-- Book 2 -->
+                <div class="col-md-3 col-sm-6">
+                    <div class="product-card text-center position-relative">
+                        <div class="product-image">
+                            <img src="img/book2.png" class="img-fluid" alt="Harry Potter và Hòn Đá Phù Thủy">
+                        </div>
+                        <h6 class="mt-3">Harry Potter và Hòn Đá Phù Thủy</h6>
+                        <p class="text-muted">96.000đ</p>
+                    </div>
+                </div>
+                <!-- Book 3 -->
+                <div class="col-md-3 col-sm-6">
+                    <div class="product-card text-center position-relative">
+                        <div class="product-image">
+                            <img src="img/book3.png" class="img-fluid" alt="Đắc Nhân Tâm">
+                            <span class="tag-badge new">Mới</span>
+                        </div>
+                        <h6 class="mt-3">Đắc Nhân Tâm</h6>
+                        <p class="text-muted">89.000đ</p>
+                    </div>
+                </div>
+                <!-- Book 4 -->
+                <div class="col-md-3 col-sm-6">
+                    <div class="product-card text-center position-relative">
+                        <div class="product-image">
+                            <img src="img/book4.png" class="img-fluid" alt="Tuổi Trẻ Đáng Giá Bao Nhiêu">
+                        </div>
+                        <h6 class="mt-3">Tuổi Trẻ Đáng Giá Bao Nhiêu</h6>
+                        <p class="text-muted">90.000đ</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section py-5">
+        <div class="container-fluid">
+            <div class="row text-center g-0 align-items-center">
+                <!-- Contact Box 1 -->
+                <div class="col-md-4">
+                    <div class="contact-box">
+                        <h4>Cần Hỗ Trợ?</h4>
+                        <p>Liên hệ với đội ngũ tư vấn viên của chúng tôi</p>
+                        <a href="/contact" class="btn btn-dark btn-sm">Liên hệ</a>
+                    </div>
+                </div>
+                <!-- Contact Box 2 -->
+                <div class="col-md-4">
+                    <div class="contact-box">
+                        <h4>Gọi Ngay - 1900 1234</h4>
+                        <p>Chúng tôi luôn sẵn sàng giải đáp thắc mắc của bạn</p>
+                        <div class="social-icons">
+                            <i class="bi bi-facebook"></i>
+                            <i class="bi bi-twitter"></i>
+                            <i class="bi bi-linkedin"></i>
+                            <i class="bi bi-envelope"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- Contact Box 3 -->
+                <div class="col-md-4">
+                    <div class="contact-box">
+                        <h4>Hệ Thống Nhà Sách</h4>
+                        <p>Tìm cửa hàng gần bạn nhất</p>
+                        <a href="#" class="btn btn-dark btn-sm">Tìm nhà sách</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <!-- Thay thế phần footer trong cả hai file -->
+    <div th:replace="fragments/footer :: footer"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+    #chat-toggle-btn {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 9999;
+        background: #0d6efd;
+        color: #fff;
+        border-radius: 50%;
+        width: 56px;
+        height: 56px;
+        border: none;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        font-size: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #call-toggle-btn {
+        position: fixed;
+        bottom: 90px;
+        right: 24px;
+        z-index: 10000;
+        background: #28a745;
+        color: #fff;
+        border-radius: 50%;
+        width: 56px;
+        height: 56px;
+        border: none;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        font-size: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s;
+    }
+
+    #call-toggle-btn:hover {
+        background: #218838;
+    }
+
+    #call-confirm-box {
+        position: fixed;
+        bottom: 160px;
+        right: 24px;
+        z-index: 10001;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+        padding: 18px 20px 14px 20px;
+        min-width: 260px;
+        display: none;
+        align-items: center;
+        font-size: 16px;
+    }
+
+    #call-confirm-box .call-actions {
+        margin-top: 12px;
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+    }
+
+    #call-confirm-box .btn {
+        padding: 4px 16px;
+        font-size: 15px;
+    }
+
+    #chat-box {
+        position: fixed;
+        bottom: 90px;
+        right: 24px;
+        width: 320px;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+        z-index: 9999;
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    #chat-box-header {
+        background: #0d6efd;
+        color: #fff;
+        padding: 12px 16px;
+        font-weight: 600;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #chat-box-messages {
+        padding: 16px;
+        height: 180px;
+        overflow-y: auto;
+        background: #f8f9fa;
+        font-size: 15px;
+    }
+
+    #chat-box-input {
+        display: flex;
+        border-top: 1px solid #eee;
+        background: #fff;
+    }
+
+    #chat-box-input input {
+        flex: 1;
+        border: none;
+        padding: 10px;
+        outline: none;
+        font-size: 15px;
+        background: #fff;
+    }
+
+    #chat-box-input button {
+        border: none;
+        background: #0d6efd;
+        color: #fff;
+        padding: 0 18px;
+        font-size: 18px;
+        border-radius: 0 0 12px 0;
+    }
+
+    /* ...các style khác... */
+
+    #chat-toggle-btn,
+    #call-toggle-btn {
+        /* ...các thuộc tính cũ... */
+        transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+    }
+
+    #chat-toggle-btn:hover,
+    #call-toggle-btn:hover {
+        box-shadow: 0 4px 24px rgba(13, 110, 253, 0.25), 0 0 0 8px rgba(13,110,253,0.08);
+        transform: scale(1.08);
+        filter: brightness(1.1);
+        cursor: pointer;
+    }
+
+    #call-toggle-btn:hover {
+        background: #218838;
+        box-shadow: 0 4px 24px rgba(40, 167, 69, 0.25), 0 0 0 8px rgba(40,167,69,0.08);
+    }
+
+    #chat-toggle-btn:hover {
+        background: #0b5ed7;
+    }
+    </style>
+
+    <button id="chat-toggle-btn" title="Chat với chủ page">
+        <i class="bi bi-chat-dots"></i>
+    </button>
+    <button id="call-toggle-btn" title="Gọi cho chủ page">
+        <i class="bi bi-telephone-fill"></i>
+    </button>
+    <div id="call-confirm-box">
+        <div>
+            Gọi cho chủ page<br>
+            <b style="color:#28a745;font-size:18px;">0332 831 897</b>
+        </div>
+        <div class="call-actions">
+            <button class="btn btn-success" id="call-confirm-yes">Gọi</button>
+            <button class="btn btn-secondary" id="call-confirm-no">Bỏ qua</button>
+        </div>
+    </div>
+
+    <div id="chat-box">
+        <div id="chat-box-header">
+            <span>Chat với chủ page</span>
+            <button type="button"
+                style="background:none;border:none;color:#fff;font-size:20px;"
+                onclick="toggleChatBox()">&times;</button>
+        </div>
+        <div id="chat-box-messages">
+            <div style="color:#888;">Xin chào! Bạn cần hỗ trợ gì?</div>
+        </div>
+        <div id="chat-box-input">
+            <input type="text" id="chat-input" placeholder="Nhập tin nhắn..."
+                onkeydown="if(event.key==='Enter'){sendChatMessage();}">
+            <button onclick="sendChatMessage()"><i class="bi bi-send"></i></button>
+        </div>
+    </div>
+
+    <script>
+function toggleChatBox() {
+    const box = document.getElementById('chat-box');
+    const callBtn = document.getElementById('call-toggle-btn');
+    if (box.style.display === 'flex') {
+        box.style.display = 'none';
+        callBtn.style.display = 'flex';
+    } else {
+        box.style.display = 'flex';
+        callBtn.style.display = 'none';
+    }
+}
+document.getElementById('chat-toggle-btn').onclick = toggleChatBox;
+
+function sendChatMessage() {
+    const input = document.getElementById('chat-input');
+    const msg = input.value.trim();
+    if (!msg) return;
+    const messages = document.getElementById('chat-box-messages');
+    const div = document.createElement('div');
+    div.style.margin = '8px 0';
+    div.style.textAlign = 'right';
+    div.innerHTML = `<span style="background:#0d6efd;color:#fff;padding:6px 12px;border-radius:16px;display:inline-block;">${msg}</span>`;
+    messages.appendChild(div);
+    input.value = '';
+    messages.scrollTop = messages.scrollHeight;
+
+    // Trả lời tự động đơn giản
+    setTimeout(() => {
+        const botDiv = document.createElement('div');
+        botDiv.style.margin = '8px 0';
+        botDiv.style.textAlign = 'left';
+        botDiv.innerHTML = `<span style="background:#eee;color:#222;padding:6px 12px;border-radius:16px;display:inline-block;">Cảm ơn bạn đã nhắn tin! Chủ page sẽ phản hồi sớm nhất.</span>`;
+        messages.appendChild(botDiv);
+        messages.scrollTop = messages.scrollHeight;
+    }, 600);
+}
+
+// Call box logic
+const callBtn = document.getElementById('call-toggle-btn');
+const callBox = document.getElementById('call-confirm-box');
+callBtn.onclick = function() {
+    callBox.style.display = 'block';
+};
+document.getElementById('call-confirm-no').onclick = function() {
+    callBox.style.display = 'none';
+};
+document.getElementById('call-confirm-yes').onclick = function() {
+    callBox.style.display = 'none';
+    window.location.href = 'tel:0332831897';
+};
+    </script>
+</body>
+
+</html>
