@@ -1,0 +1,1 @@
+MOMO TEST PAYMENT: https://developers.momo.vn/v3/vi/docs/payment/onboarding/test-instructions/
